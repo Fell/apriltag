@@ -71,7 +71,7 @@ static uint64_t codedata[38] = {
 apriltag_family_t *tagCircle21h7_create()
 {
    apriltag_family_t *tf = calloc(1, sizeof(apriltag_family_t));
-   tf->name = strdup("tagCircle21h7");
+   tf->name = _strdup("tagCircle21h7");
    tf->h = 7;
    tf->ncodes = 38;
    tf->codes = codedata;

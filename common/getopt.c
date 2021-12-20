@@ -147,7 +147,7 @@ int getopt_parse(getopt_t *gopt, int argc, char *argv[], int showErrors)
     // take the input stream and chop it up into tokens
     for (int i = 1; i < argc; i++) {
 
-        char *arg = strdup(argv[i]);
+        char *arg = _strdup(argv[i]);
         char *eq  = get_arg_assignment(arg);
 
         // no equal sign? Push the whole thing.
@@ -156,7 +156,7 @@ int getopt_parse(getopt_t *gopt, int argc, char *argv[], int showErrors)
         } else {
             // there was an equal sign. Push the part
             // before and after the equal sign
-            char *val = strdup(&eq[1]);
+            char *val = _strdup(&eq[1]);
             eq[0] = 0;
             zarray_add(toks, &arg);
 
@@ -166,7 +166,7 @@ int getopt_parse(getopt_t *gopt, int argc, char *argv[], int showErrors)
                 size_t last = strlen(val) - 1;
                 if (val[last]=='\"')
                     val[last] = 0;
-                char *valclean = strdup(&val[1]);
+                char *valclean = _strdup(&val[1]);
                 zarray_add(toks, &valclean);
                 free(val);
             } else {
@@ -218,7 +218,7 @@ int getopt_parse(getopt_t *gopt, int argc, char *argv[], int showErrors)
                         continue;
                     }
                 }
-                getopt_modify_string(&goo->svalue, strdup("true"));
+                getopt_modify_string(&goo->svalue, _strdup("true"));
                 i++;
                 continue;
             }
@@ -268,7 +268,7 @@ int getopt_parse(getopt_t *gopt, int argc, char *argv[], int showErrors)
                 goo->was_specified = 1;
 
                 if (goo->type == GOO_BOOL_TYPE) {
-                    getopt_modify_string(&goo->svalue, strdup("true"));
+                    getopt_modify_string(&goo->svalue, _strdup("true"));
                     continue;
                 }
 
@@ -314,7 +314,7 @@ void getopt_add_spacer(getopt_t *gopt, const char *s)
 {
     getopt_option_t *goo = (getopt_option_t*) calloc(1, sizeof(getopt_option_t));
     goo->spacer = 1;
-    goo->help = strdup(s);
+    goo->help = _strdup(s);
     zarray_add(gopt->options, &goo);
 }
 
@@ -346,11 +346,11 @@ void getopt_add_bool(getopt_t *gopt, char sopt, const char *lname, int def, cons
     }
 
     getopt_option_t *goo = (getopt_option_t*) calloc(1, sizeof(getopt_option_t));
-    goo->sname=strdup(sname);
-    goo->lname=strdup(lname);
-    goo->svalue=strdup(def ? "true" : "false");
+    goo->sname=_strdup(sname);
+    goo->lname=_strdup(lname);
+    goo->svalue=_strdup(def ? "true" : "false");
     goo->type=GOO_BOOL_TYPE;
-    goo->help=strdup(help);
+    goo->help=_strdup(help);
 
     zhash_put(gopt->lopts, &goo->lname, &goo, NULL, NULL);
     zhash_put(gopt->sopts, &goo->sname, &goo, NULL, NULL);
@@ -396,11 +396,11 @@ void getopt_add_string(getopt_t *gopt, char sopt, const char *lname, const char 
     }
 
     getopt_option_t *goo = (getopt_option_t*) calloc(1, sizeof(getopt_option_t));
-    goo->sname=strdup(sname);
-    goo->lname=strdup(lname);
-    goo->svalue=strdup(def);
+    goo->sname=_strdup(sname);
+    goo->lname=_strdup(lname);
+    goo->svalue=_strdup(def);
     goo->type=GOO_STRING_TYPE;
-    goo->help=strdup(help);
+    goo->help=_strdup(help);
 
     zhash_put(gopt->lopts, &goo->lname, &goo, NULL, NULL);
     zhash_put(gopt->sopts, &goo->sname, &goo, NULL, NULL);

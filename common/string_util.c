@@ -420,7 +420,7 @@ char *string_buffer_to_string(string_buffer_t *sb)
 {
     assert(sb != NULL);
 
-    return strdup(sb->s);
+    return _strdup(sb->s);
 }
 
 // returns length of string (not counting \0)
@@ -444,7 +444,7 @@ string_feeder_t *string_feeder_create(const char *str)
     assert(str != NULL);
 
     string_feeder_t *sf = (string_feeder_t*) calloc(1, sizeof(string_feeder_t));
-    sf->s = strdup(str);
+    sf->s = _strdup(str);
     sf->len = strlen(sf->s);
     sf->line = 1;
     sf->col = 0;
@@ -669,7 +669,7 @@ char *str_replace_many(const char *_haystack, ...)
     va_list ap;
     va_start(ap, _haystack);
 
-    char *haystack = strdup(_haystack);
+    char *haystack = _strdup(_haystack);
 
     while (true) {
         char *needle = va_arg(ap, char*);

@@ -63,7 +63,7 @@ static uint64_t codedata[30] = {
 apriltag_family_t *tag16h5_create()
 {
    apriltag_family_t *tf = calloc(1, sizeof(apriltag_family_t));
-   tf->name = strdup("tag16h5");
+   tf->name = _strdup("tag16h5");
    tf->h = 5;
    tf->ncodes = 30;
    tf->codes = codedata;

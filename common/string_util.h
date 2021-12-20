@@ -444,8 +444,8 @@ bool string_feeder_starts_with(string_feeder_t *sf, const char *str);
  */
 void string_feeder_require(string_feeder_t *sf, const char *str);
 
-/*#ifndef strdup
-    static inline char *strdup(const char *s) {
+/*#ifndef _strdup
+    static inline char *_strdup(const char *s) {
         int len = strlen(s);
         char *out = malloc(len+1);
         memcpy(out, s, len + 1);
